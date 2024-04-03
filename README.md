@@ -97,7 +97,7 @@ O resultado do script apresentado foi :
  •	*Criar um script que valide se o serviço esta online e envie o resultado da validação para o seu diretório no nfs; O script deve conter - Data HORA + nome do serviço + Status + mensagem personalizada de ONLINE ou offline; O script deve gerar 2 arquivos de saida: 1 para o serviço online e 1 para o serviço OFFLINE.*
  
 
- - Para criar o script devemos estar dentro do nosso diretório que criamos anteriormente, neste caso o caminho seria ``` cd /mnt/nfs/gustavo ```. Estando dentro do diretório execute o comando ```nano service_status.sh``` para criar e abrir o arquivo do script. Dentro do arquivo, digite o script. O script criado para essa atividade pode ser observado a seguir:
+- Para criar o script devemos estar dentro do nosso diretório que criamos anteriormente, neste caso o caminho seria ``` cd /mnt/nfs/gustavo ```. Estando dentro do diretório execute o comando ```nano service_status.sh``` para criar e abrir o arquivo do script. Dentro do arquivo, digite o script. O script criado para essa atividade pode ser observado a seguir:
    
  ```  
 #!/bin/bash
@@ -117,7 +117,7 @@ fi
 
  •	Preparar a execução automatizada do script a cada 5 minutos.
 
- Para o agendamento da execução do script vamos utilizar o comando ```crontab -e```. Dentro do arquivo digite a linha ```*/5 * * * * /[caminho de onde está o script/nome do script]```. Em nosso caso, ficou dessa forma: ```*/5 * * * * /mnt/nfs/gustavo/service_status.sh```. Para fazer a confirmação de que o script  esta realizando a verificação do serviço offline é preciso interromper o Apache com o comando ``` service httpd status```. Aguardando alguns minutos para que o crontab continue a executar o script, poderemos ver a criação do arquivo httpd-offline.txt, que exibe os momentos em que o status do serviço estava offline, conforme imagens abaixo: 
+Para o agendamento da execução do script vamos utilizar o comando ```crontab -e```. Dentro do arquivo digite a linha ```*/5 * * * * /[caminho de onde está o script/nome do script]```. Em nosso caso, ficou dessa forma: ```*/5 * * * * /mnt/nfs/gustavo/service_status.sh```. Para fazer a confirmação de que o script  esta realizando a verificação do serviço offline é preciso interromper o Apache com o comando ``` service httpd status```. Aguardando alguns minutos para que o crontab continue a executar o script, poderemos ver a criação do arquivo httpd-offline.txt, que exibe os momentos em que o status do serviço estava offline, conforme imagens abaixo: 
 
 
  
@@ -126,4 +126,10 @@ fi
 
 
 ![dando cat nos arquivos online e offline criados pelo script](https://github.com/Gustavopedoni1/Projeto-CompassUOL-LINUX_AWS/assets/157602238/3acfda3a-579e-4b45-b120-cb5b79b1a36e)
+
+Referências para a realização da atividade
+
+Documentação oficial Amazon AWS: https://docs.aws.amazon.com/pt_br/
+
+![images-removebg-preview](https://github.com/Gustavopedoni1/Projeto-CompassUOL-LINUX_AWS/assets/157602238/8946006a-9e00-439a-88a2-4bf7f41bc6cd)
 
