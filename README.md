@@ -1,42 +1,46 @@
+
 # Projeto-CompassUOL-LINUX_AWS
 
-Requisitos no linux:
+# *Requisitos no linux:*
 
-Entrando em modo root
+Entrando em modo root:
 ```
 sudo su
 ```
 
-Atualizando os pacotes do sistema 
+Atualizando os pacotes do sistema:
 ```
 yum update
 ```
 
 
- •	Configurar o NFS entregue;
+ •	*Configurar o NFS ;*
 
  - Instalando o pacote efs no linux através do comando :
 ```
 amazon-efs-utils
 ```
 
-•	Criar um diretorio dentro do filesystem do NFS com seu nome;
+•	*Criar um diretório dentro do filesystem do NFS com seu nome;*
 
-- Criando diretório local que servirá como ponto de montagem e também o diretorio dentro do filesystem do NFS com seu nome
+- Criando diretório local que servirá como ponto de montagem e também o diretório dentro do filesystem do NFS com seu nome
   
 ```
 /mnt/nfs/gustavo
 ```
 
-- Montando o Efs ao Linux/servidor. Para isso, é preciso utilizar o comando que deve ser copiado da console aws>>EFS>>atach(anexar), exemplo de comando  ``` sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-079d051a3841fbcc8.efs.us-east-1.amazonaws.com:/ /mnt/nfs```, lembrando que cada um terá o seu próprio DNS, e caminho local, que aqui foi nomeado como /mnt/nfs;
+- Montando o Efs ao Linux/servidor. Para isto, é preciso utilizar o comando que deve ser copiado da console aws>>EFS>>atach(anexar), exemplo de comando  ``` sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-079d051a3841fbcc8.efs.us-east-1.amazonaws.com:/ /mnt/nfs```, lembrando que cada um terá o seu próprio DNS, e caminho local, que aqui foi nomeado como /mnt/nfs;
              
                                                                
 - Verificar se o EFS esta funcionando através do comando :
   ``` df -h ```
   
-![df -h para ver se o efs esta rodando ok](https://github.com/Gustavopedoni1/Projeto-CompassUOL-LINUX_AWS/assets/157602238/444e4426-a4a3-4821-bb9c-95f281a1c876)
+![df -h para ver se o efs esta rodando ok](https://github.com/Gustavopedoni1/Projeto-CompassUOL-LINUX_AWS/assets/157602238/2c8e8ad9-6b26-48a6-8673-fa424f33d374)
 
-Para evitarmos que o EFS pare após o a instancia/servidor ser reiniciado devemos fazer uma alteração no arquivo fstab que esta dentro do diretorio ```/etc```.
+
+
+
+Para evitarmos que o EFS pare após o a instância/servidor ser reiniciado devemos fazer uma alteração no arquivo fstab que esta dentro do diretório ```/etc```.
 
 
 
@@ -57,9 +61,9 @@ Devemos acresentar mais uma linha de comando com a seguinte sintaxe ``` DNS:/ /m
 
 
  
- •	Subir um apache no servidor - o apache deve estar online e rodando;
+ •	*Subir um apache no servidor - o apache deve estar online e rodando;*
 
-- Instaleando o Apache com o comando ``` yum install httpd -y ``` 
+- Instalando o Apache com o comando ``` yum install httpd -y ``` 
  
 - Iniciando o Apache no sistema com o comando ``` service httpd start ```
  
@@ -69,11 +73,11 @@ Devemos acresentar mais uma linha de comando com a seguinte sintaxe ``` DNS:/ /m
 
 
 
-O Apache já vem com uma página inicial padrão que pode ser acessada através da digitação do IP público da instancia na barra de endereço de um navegador. 
+O Apache já vem com uma página inicial padrão que pode ser acessada através da digitação do IP público da instância na barra de endereço de um navegador. 
 
 ![APACHE](https://github.com/Gustavopedoni1/Projeto-CompassUOL-LINUX_AWS/assets/157602238/3ad2855c-4932-4074-a4a5-a70e989e486d)
 
-Porém é possível editar essa página HTML para que exiba o que você quiser. Para isto ser feito devemos navergar até o diretorio html ```  cd /var/www/html ``` estando no diretorio, se fizermos uma listagem dos arquivos ( ``` ls ``` ) veremos o arquivo index.html : 
+Porém é possível editar essa página HTML para que exiba o que você quiser. Para isto ser feito devemos navergar até o diretório html ```  cd /var/www/html ``` estando no diretório, se fizermos uma listagem dos arquivos ( ``` ls ``` ) veremos o arquivo index.html : 
 
 ![image](https://github.com/Gustavopedoni1/Projeto-CompassUOL-LINUX_AWS/assets/157602238/7f3bb088-8f90-40f6-bee8-6e359c1eedd6)
 
@@ -90,10 +94,10 @@ O resultado do script apresentado foi :
 
 
  
- •	Criar um script que valide se o serviço esta online e envie o resultado da validação para o seu diretorio no nfs; O script deve conter - Data HORA + nome do serviço + Status + mensagem personalizada de ONLINE ou offline; O script deve gerar 2 arquivos de saida: 1 para o serviço online e 1 para o serviço OFFLINE.
+ •	*Criar um script que valide se o serviço esta online e envie o resultado da validação para o seu diretório no nfs; O script deve conter - Data HORA + nome do serviço + Status + mensagem personalizada de ONLINE ou offline; O script deve gerar 2 arquivos de saida: 1 para o serviço online e 1 para o serviço OFFLINE.*
  
 
- - Para criar o script devemos estar dentro do nosso diretorio que criamos anteriormente, neste caso o caminho seria ``` cd /mnt/nfs/gustavo ```. Estando dentro do diretorio execute o comando ```nano service_status.sh``` para criar e abrir o arquivo do script. Dentro do arquivo, digite o script. O script criado para essa atividade pode ser observado a seguir:
+ - Para criar o script devemos estar dentro do nosso diretório que criamos anteriormente, neste caso o caminho seria ``` cd /mnt/nfs/gustavo ```. Estando dentro do diretório execute o comando ```nano service_status.sh``` para criar e abrir o arquivo do script. Dentro do arquivo, digite o script. O script criado para essa atividade pode ser observado a seguir:
    
  ```  
 #!/bin/bash
@@ -108,21 +112,18 @@ else
 fi 
 
 ```
- Veja que, no exemplo acima, já indicamos que a operação deve criar no caminho do diretório indicado, e enviar dois arquivos em formato .txt com os resultados da verificação. Sendo um arquivo para o resultado online e outro para o resultado offline. Após salvar o arquivo devemos tornar o script executável com o comando ``` sudo chmod +x [nome do script]```, sendo, nesse caso, ```sudo chmod +x service_status.sh```, estando no diretorio onde o script foi criado e ativado execute o comando ```./service_status.sh ``` para executá-lo. 
-
-Caso esteja funcionando e o serviço esteja online o script deve criar o documento .txt de nome httpd-online.txt, e caso o serviço fique offline o arquivo httpd-offline.txt deve ser criado. Vejamos no exemplo a seguir:
+ Veja que, no exemplo acima, já indicamos que a operação deve criar no caminho do diretório indicado, e enviar dois arquivos em formato .txt com os resultados da verificação. Sendo um arquivo para o resultado online e outro para o resultado offline. Após salvar o arquivo devemos tornar o script executável com o comando ``` sudo chmod +x [nome do script]```, sendo, nesse caso, ```sudo chmod +x service_status.sh```, estando no diretório onde o script foi criado e ativado execute o comando ```./service_status.sh ``` para executá-lo. Caso esteja funcionando e o serviço esteja online o script deve criar o documento .txt de nome httpd-online.txt.
 
 
-
-![on off](https://github.com/Gustavopedoni1/Projeto-CompassUOL-LINUX_AWS/assets/157602238/22b02ce7-6f6b-40cc-a97f-bfb5baa447cd)
-
-
- 
-
- 
  •	Preparar a execução automatizada do script a cada 5 minutos.
 
+ Para o agendamento da execução do script vamos utilizar o comando ```crontab -e```. Dentro do arquivo digite a linha ```*/5 * * * * /[caminho de onde está o script/nome do script]```. Em nosso caso, ficou dessa forma: ```*/5 * * * * /mnt/nfs/gustavo/service_status.sh```. Para fazer a confirmação de que o script  esta realizando a verificação do serviço offline é preciso interromper o Apache com o comando ``` service httpd status```. Aguardando alguns minutos para que o crontab continue a executar o script, poderemos ver a criação do arquivo httpd-offline.txt, que exibe os momentos em que o status do serviço estava offline, conforme imagens abaixo: 
+
 
  
+![on off](https://github.com/Gustavopedoni1/Projeto-CompassUOL-LINUX_AWS/assets/157602238/3a2941c9-ba27-4959-bdbf-c4f524c33177)
 
+
+
+![dando cat nos arquivos online e offline criados pelo script](https://github.com/Gustavopedoni1/Projeto-CompassUOL-LINUX_AWS/assets/157602238/3acfda3a-579e-4b45-b120-cb5b79b1a36e)
 
