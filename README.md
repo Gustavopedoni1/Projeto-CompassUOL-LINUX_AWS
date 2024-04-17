@@ -26,7 +26,7 @@ amazon-efs-utils
 - Criando diretório local que servirá como ponto de montagem e também o diretório dentro do filesystem do NFS com seu nome
   
 ```
-/mnt/nfs/gustavo
+mkdir /mnt/nfs/gustavo
 ```
 
 - Montando o Efs ao Linux/servidor. Para isto, é preciso utilizar o comando que deve ser copiado da console aws>>EFS>>atach(anexar), exemplo de comando  ``` sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-079d051a3841fbcc8.efs.us-east-1.amazonaws.com:/ /mnt/nfs```, lembrando que cada um terá o seu próprio DNS, e caminho local, que aqui foi nomeado como /mnt/nfs;
